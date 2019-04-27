@@ -146,29 +146,17 @@ def calcShadowingPathLoss(d, d0, F, gamma, S):
 
 def allocatingPilotSequence(k, cells):
     totalUsersK = k
-    for c in range(cells):
+    for cel in range(cells):
         if((k%2) != 0):
             totalUsersK = k + 1
         sequence = []
         for h in range(totalUsersK):
-            sequence.append([])
-            for i in range(totalUsersK):
-                if (((k % 2) != 0) and (i == k)):
-                    sequence[h].append(0)
-                else:
-                    if (h == i):
-                        sequence[h].append(1)
-                    else:
-                        sequence[h].append(-1)
-            # print("PilotSequence C%s.%s - %s" % (totalUsersK + 1, i, sequence[h]))
+            # sequence.append([])
+            sequence.append([cel, h ,h])
         phi.append(sequence)
 
-    #logPrilotSequences
-    # for h in range(len(phi)):
-    #     for i in range(len(phi[h])):
-    #         print("PilotSequence Cell -> %s.%s - C%s.%s - %s" % (h,i, k, i, phi[h][i]))
-
-
+    # for k in range(len(phi)):
+    #     print("PHI -> ", phi[k])
 
 ########################################################################################################################
 # Parameters
@@ -260,6 +248,6 @@ individual.fnFitness()
 
 ga = GeneticAlgorithm()
 ga.inicializePopulation(phi)
-# ga.printPopulation()
+ga.printPopulation()
 
-print("TSTES %s" % ga.population[0][1].chromosome)
+# print("TSTES %s" % ga.population[0][1].chromosome)

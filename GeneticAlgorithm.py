@@ -18,7 +18,9 @@ class Individual():
         self.geracao = geracao
 
         for i in range(len(pilotsSequence)):
+            # for j in range(len(pilotsSequence[i])):
             self.chromosome.append(pilotsSequence[i])
+        # print("CROMO ", pilotsSequence)
 
     def fnFitness(self):
         print('calcular fitness')
@@ -42,4 +44,4 @@ class GeneticAlgorithm():
     def printPopulation(self):
         for h in range(len(self.population)):
             for i in range(len(self.population[h])):
-                print("PilotSequence Cell POPULATION -> %s.%s - C%s. - %s" % (h, i, i, self.population[h][i].chromosome))
+                print("PilotSequence Cell -> %s user: %s - chromosome: %s" % (h, i, self.population[h][i].chromosome))
