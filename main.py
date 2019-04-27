@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import itertools
+from GeneticAlgorithm import *
 
 ########################################################################################################################
 # To do List
@@ -143,6 +144,30 @@ def calcShadowingPathLoss(d, d0, F, gamma, S):
                 beta[i, j, r] = (((3E8)/(4*np.pi*F*d0))**2)*((d0/d[i, j, r])**gamma)*np.random.normal(0, S)
     return beta
 
+def allocatingPilotSequence(k, cells):
+    totalUsersK = k
+    for c in range(cells):
+        if((k%2) != 0):
+            totalUsersK = k + 1
+        sequence = []
+        for h in range(totalUsersK):
+            sequence.append([])
+            for i in range(totalUsersK):
+                if (((k % 2) != 0) and (i == k)):
+                    sequence[h].append(0)
+                else:
+                    if (h == i):
+                        sequence[h].append(1)
+                    else:
+                        sequence[h].append(-1)
+            # print("PilotSequence C%s.%s - %s" % (totalUsersK + 1, i, sequence[h]))
+        phi.append(sequence)
+
+    #logPrilotSequences
+    # for h in range(len(phi)):
+    #     for i in range(len(phi[h])):
+    #         print("PilotSequence Cell -> %s.%s - C%s.%s - %s" % (h,i, k, i, phi[h][i]))
+
 
 
 ########################################################################################################################
@@ -186,6 +211,8 @@ c_x = np.zeros((int(BS), 1))
 c_y = np.zeros((int(BS), 1))
 beta = np.zeros((int(BS), int(K), int(BS), int(W)))
 
+phi = [] #hipermatrixPilotSequente
+
 #Random Frequencies and Bandwidths
 B = randomBandwidths(W, Bmax)
 F = np.random.uniform(Fmin, Fmax, W)
@@ -222,4 +249,17 @@ for i in range(0, len(B)):
 #Minimum Output Power (ETSI TS 136 101 V14.3.0 (2017-04))
 p_min = -40 #dBm
 
-plt.show()
+allocatingPilotSequence(K, 7)
+
+# plt.show()
+
+# ------GA------
+setupGA = SetupGA(10,10,5, 60.02)
+individual = Individual()
+individual.fnFitness()
+
+ga = GeneticAlgorithm()
+ga.inicializePopulation(phi)
+# ga.printPopulation()
+
+print("TSTES %s" % ga.population[0][1].chromosome)
