@@ -237,17 +237,23 @@ for i in range(0, len(B)):
 #Minimum Output Power (ETSI TS 136 101 V14.3.0 (2017-04))
 p_min = -40 #dBm
 
-allocatingPilotSequence(K, 7)
+allocatingPilotSequence(K, 2)
 
 # plt.show()
 
 # ------GA------
 setupGA = SetupGA(10,10,5, 60.02)
+generationNumber = 3
+rateMutation = 0.05
+
 individual = Individual()
-individual.fnFitness()
 
 ga = GeneticAlgorithm()
-ga.inicializePopulation(phi)
-ga.printPopulation()
+ga.runGA(phi, generationNumber, rateMutation)
+# ga.inicializePopulation(phi)
+# for i in range(len(ga.population)):
+#     for j in range(len(ga.population[i])):
+#         ga.population[i][j].fnFitness()
 
+# ga.printPopulation()
 # print("TSTES %s" % ga.population[0][1].chromosome)
