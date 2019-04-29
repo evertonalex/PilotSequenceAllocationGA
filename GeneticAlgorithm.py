@@ -30,15 +30,35 @@ class Individual():
             self.chromosome.append(pilotsSequence[i])
         # print("CROMO ", pilotsSequence)
 
-    def fnFitness(self):
-        # print('calcular fitness')
+    # def fnFitness(self, phi, beta, sigma):
+    def fnFitness(self, beta, sigma):
+        print('calcular fitness')
 
-        l = self.chromosome[0]
-        k = self.chromosome[1]
-        sequence = self.chromosome[2]
+        # l = self.chromosome[0]
+        # k = self.chromosome[1]
+        # sequence = self.chromosome[2]
+        #
+        # self.fitnessNote = (l + k)
 
-        self.fitnessNote = (l + k)
-        # print("fitnessNote = ", self.fitnessNote)
+        phi = self.chromosome
+
+        f = np.zeros((len(phi), len(phi)))
+        for ell in range(0, len(phi)):
+            for k in range(0, len(phi)):
+                f[k, ell] = beta[k, ell, ell]
+                deno = 0
+                for j in range(0, len(phi)):
+                    for kline in range(0, len(phi)):
+                        if j != ell:
+                            # deno += np.inner(phi[k, :, ell], phi[kline, :, j])*beta[kline, j, ell]
+                            deno += np.inner(phi[2], phi[2])*beta[kline, j, ell]
+                deno += sigma
+                f[k, ell] /= deno
+        self.fitnessNote = np.sum(f)
+        print("fitnessNote = ", self.fitnessNote)
+
+
+
 
     def crossover(self, otherIndvidual):
         children1 = self.chromosome[0:2]+otherIndvidual.chromosome[2::]
@@ -108,11 +128,11 @@ class GeneticAlgorithm():
 ########################################################################################################################
 # RUN GA
 ########################################################################################################################
-    def runGA(self, pilotSequenceHipermatrix, generationsNumber, rateMutation):
+    def runGA(self, pilotSequenceHipermatrix, generationsNumber, rateMutation, beta, sigma):
         self.inicializePopulation(pilotSequenceHipermatrix)
         for i in range(len(self.population)):
             for j in range(len(self.population[i])):
-                self.population[i][j].fnFitness()
+                self.population[i][j].fnFitness(beta, sigma)
         # self.printPopulation()
         # self.sortPopulation()
         self.printPopulation()
@@ -141,7 +161,7 @@ class GeneticAlgorithm():
             self.population = list(newPopulation)
             for i in range(len(self.population)):
                 for j in range(len(self.population[i])):
-                    self.population[i][j].fnFitness()
+                    self.population[i][j].fnFitness(beta, sigma)
 
                     if self.bestSolution < self.population[i][j].fitnessNote:
                         self.bestSolution = self.population[i][j].fitnessNote

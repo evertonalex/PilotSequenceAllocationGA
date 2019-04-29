@@ -17,6 +17,10 @@ from GeneticAlgorithm import *
 C60 = np.cos(1.0472)
 #Sine of 60 degrees
 S60 = np.sin(1.0472)
+# Maximum Bandwidth per Carrier
+Bmax = 20E6
+# Noise Power Spectrum Density
+N0 = 4.11E-21
 
 ########################################################################################################################
 # Auxiliary Functions
@@ -249,7 +253,7 @@ rateMutation = 0.05
 individual = Individual()
 
 ga = GeneticAlgorithm()
-ga.runGA(phi, generationNumber, rateMutation)
+ga.runGA(phi, generationNumber, rateMutation, beta, N0*Bmax)
 # ga.inicializePopulation(phi)
 # for i in range(len(ga.population)):
 #     for j in range(len(ga.population[i])):
