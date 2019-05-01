@@ -26,9 +26,10 @@ class Individual():
         self.geracao = geracao
 
         for i in range(len(pilotsSequence)):
+            # print("IDV --- %s -> %s" % (i, pilotsSequence[i]))
             # for j in range(len(pilotsSequence[i])):
             self.chromosome.append(pilotsSequence[i])
-        # print("CROMO ", pilotsSequence)
+        print("CROMO -> %s " % ( self.chromosome))
 
     # def fnFitness(self, phi, beta, sigma):
     def fnFitness(self, phi, beta, sigma):
@@ -92,9 +93,9 @@ class GeneticAlgorithm():
             self.population.append([])
             for j in range(len(phi[i])):
                 # print("TESTE ", phi[i])
-                self.population[i].append(Individual(phi[i][j]))
+                self.population[i].append(Individual(phi[i]))
                 # self.bestSolution = self.population[0]
-            print("Icializando população -> ", i)
+            # print("phiChromo ", phi[i][j])
 
     def printPopulation(self):
         for h in range(len(self.population)):
