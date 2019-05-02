@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import itertools
 from GeneticAlgorithm import *
+import time
 
 ########################################################################################################################
 # To do List
@@ -27,6 +28,7 @@ N0 = 4.11E-21
 ########################################################################################################################
 #Hexagon Number
 
+start = time.time()
 
 def chn(n):
     return 1+(6*(0.5*n*(n-1)))
@@ -148,21 +150,16 @@ def calcShadowingPathLoss(d, d0, F, gamma, S):
                 beta[i, j, r] = (((3E8)/(4*np.pi*F*d0))**2)*((d0/d[i, j, r])**gamma)*np.random.normal(0, S)
     return beta
 
-def allocatingPilotSequence(phi):
-    for ell in range(0, len(phi[0][0])):
-        q = list(range(0, len(phi[0])))
-        np.random.shuffle(q)
-        phi[range(0, len(phi[0])), q, ell] = 1
-    return phi
-    # totalUsersK = k
-    # for cel in range(cells):
-    #     if((k%2) != 0):
-    #         totalUsersK = k + 1
-    #     sequence = []
-    #     for h in range(totalUsersK):
-    #         # sequence.append([])
-    #         sequence.append([cel, h ,h])
-    #     phi.append(sequence)
+def allocatingPilotSequence(k, cells):
+    totalUsersK = k
+    for cel in range(cells):
+        if((k%2) != 0):
+            totalUsersK = k + 1
+        sequence = []
+        for h in range(totalUsersK):
+            # sequence.append([])
+            sequence.append([cel, h ,h])
+        phi.append(sequence)
 
     # for k in range(len(phi)):
     #     print("PHI -> ", phi[k])
@@ -246,20 +243,12 @@ for i in range(0, len(B)):
 #Minimum Output Power (ETSI TS 136 101 V14.3.0 (2017-04))
 p_min = -40 #dBm
 
-# Base Stations (1 per cell)
-L = chn(C)
-# Available Pilot Sequences
-Tp = K
+allocatingPilotSequence(K, 10)
 
-# allocatingPilotSequence(K, 2)
-phi = np.zeros((int(K), int(Tp), int(L)))
-phi = allocatingPilotSequence(phi)
-
-# plt.show()
 
 # ------GA------
-setupGA = SetupGA(10,10,5, 60.02)
-generationNumber = 3
+# setupGA = SetupGA(10,10,5, 60.02)
+generationNumber = 400
 rateMutation = 0.05
 
 individual = Individual()
@@ -273,3 +262,10 @@ ga.runGA(phi, generationNumber, rateMutation, beta, N0*Bmax)
 
 # ga.printPopulation()
 # print("TSTES %s" % ga.population[0][1].chromosome)
+
+finihed = time.time()
+print("------------------------------")
+print("Tempo de execucao: ", finihed-start)
+print("------------------------------")
+plt.show()
+
