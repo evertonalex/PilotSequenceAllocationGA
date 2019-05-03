@@ -248,8 +248,8 @@ allocatingPilotSequence(K, 10)
 
 # ------GA------
 # setupGA = SetupGA(10,10,5, 60.02)
-generationNumber = 400
-rateMutation = 0.05
+generationNumber = 30
+rateMutation = 0.07
 
 individual = Individual()
 

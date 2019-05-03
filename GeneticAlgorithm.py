@@ -35,7 +35,7 @@ class Individual():
 
     # def fnFitness(self, phi, beta, sigma):
     def fnFitness(self, beta, sigma):
-        print('calcular fitness')
+        # print('calcular fitness')
 
         # l = self.chromosome[0]
         # k = self.chromosome[1]
@@ -58,7 +58,7 @@ class Individual():
                 deno += sigma
                 f[k, ell] /= deno
         self.fitnessNote = np.sum(f)
-        print("fitnessNote = ", self.fitnessNote)
+        # print("fitnessNote = ", self.fitnessNote)
 
 
 
@@ -106,14 +106,13 @@ class GeneticAlgorithm():
         self.bestSolution = 0
         self.listSolution = [] #graphic
 
-    def inicializePopulation(self, phi):
-        for i in range(len(phi)):
+    def inicializePopulation(self, pilotSequences):
+        for i in range(len(pilotSequences)):
             self.population.append([])
-            for j in range(len(phi[i])):
-                # print("TESTE ", phi[i])
-                self.population[i].append(Individual(phi[i][j]))
+            for j in range(len(pilotSequences[i])):
+                # print("TESTE ", pilotSequences[i])
+                self.population[i].append(Individual(pilotSequences[i][j]))
                 # self.bestSolution = self.population[0]
-            print("Icializando população -> ", i)
 
     def printPopulation(self):
         for h in range(len(self.population)):
@@ -191,8 +190,7 @@ class GeneticAlgorithm():
                     if self.bestSolution < self.population[i][j].fitnessNote:
                         self.bestSolution = self.population[i][j].fitnessNote
 
-            print("list ", self.listSolution)
-            self.listSolution.append(max(fitnessList)) #graphic
+            self.listSolution.append(np.argmax(fitnessList)) #graphic
 
 
         print("------------------------------")
