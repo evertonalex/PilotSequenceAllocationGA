@@ -5,12 +5,12 @@ import math
 ########################################################################################################################
 # Setting GA
 ########################################################################################################################
-class SetupGA():
-    def __init__(self, cromoSize, poulationSize, generationNumber, mutationRate):
-        self.CHROMOSOME = cromoSize
-        self.POPULATION_SIZE = poulationSize
-        self.GENERATIONS_NUMBER = generationNumber
-        self.MUTATION_RATE = mutationRate
+# class SetupGA():
+#     def __init__(self, cromoSize, poulationSize, generationNumber, mutationRate):
+#         self.CHROMOSOME = cromoSize
+#         self.POPULATION_SIZE = poulationSize
+#         self.GENERATIONS_NUMBER = generationNumber
+#         self.MUTATION_RATE = mutationRate
 
 
 CHROMOSOME = 0
