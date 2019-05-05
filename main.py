@@ -161,9 +161,6 @@ def allocatingPilotSequence(k, cells):
             sequence.append([cel, h ,h])
         phi.append(sequence)
 
-    # for k in range(len(phi)):
-    #     print("PHI -> ", phi[k])
-
 ########################################################################################################################
 # Parameters
 ########################################################################################################################
@@ -191,6 +188,11 @@ Bmax = 20E6
 #Reference distance (1 m for indoor and 10 m for outdoor)
 d0 = 10
 
+# Available Pilot Sequences
+Tp = K
+
+# Base Stations (1 per cell)
+L = chn(C)
 
 ########################################################################################################################
 # Main Script
@@ -243,18 +245,23 @@ for i in range(0, len(B)):
 #Minimum Output Power (ETSI TS 136 101 V14.3.0 (2017-04))
 p_min = -40 #dBm
 
-allocatingPilotSequence(K, 10)
+allocatingPilotSequence(K, Tp)
 
 
 # ------GA------
 # setupGA = SetupGA(10,10,5, 60.02)
-generationNumber = 30
+generationNumber = 50
 rateMutation = 0.07
+cutPoint = 3
+populationSize = 6
 
-individual = Individual()
+# individual = Individual()
 
 ga = GeneticAlgorithm()
-ga.runGA(phi, generationNumber, rateMutation, beta, N0*Bmax)
+
+# phi = np.zeros((int(K), int(Tp), int(L)))
+
+ga.runGA(generationNumber, rateMutation, beta, N0*Bmax, cutPoint, populationSize, K, Tp, L)
 # ga.inicializePopulation(phi)
 # for i in range(len(ga.population)):
 #     for j in range(len(ga.population[i])):
