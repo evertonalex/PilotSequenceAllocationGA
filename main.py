@@ -248,27 +248,15 @@ p_min = -40 #dBm
 allocatingPilotSequence(K, Tp)
 
 
-# ------GA------
-# setupGA = SetupGA(10,10,5, 60.02)
-generationNumber = 40
+#----GA SETUP-----
+generationNumber = 20
 rateMutation = 0.07
 cutPoint = 3
 populationSize = 6
-
-# individual = Individual()
+#----GA SETUP-----
 
 ga = GeneticAlgorithm()
-
-# phi = np.zeros((int(K), int(Tp), int(L)))
-
 ga.runGA(generationNumber, rateMutation, beta, N0*Bmax, cutPoint, populationSize, K, Tp, L)
-# ga.inicializePopulation(phi)
-# for i in range(len(ga.population)):
-#     for j in range(len(ga.population[i])):
-#         ga.population[i][j].fnFitness()
-
-# ga.printPopulation()
-# print("TSTES %s" % ga.population[0][1].chromosome)
 
 finihed = time.time()
 print("------------------------------")
