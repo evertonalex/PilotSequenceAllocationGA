@@ -250,7 +250,7 @@ allocatingPilotSequence(K, Tp)
 
 # ------GA------
 # setupGA = SetupGA(10,10,5, 60.02)
-generationNumber = 50
+generationNumber = 40
 rateMutation = 0.07
 cutPoint = 3
 populationSize = 6
